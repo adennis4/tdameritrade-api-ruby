@@ -73,20 +73,8 @@ module TDAmeritrade
     rescue Exception => e
       raise TDAmeritradeApiError, "error in get_positions() - #{e.message}" if !e.is_ctrl_c_exception?
     end
-
-    private
-
-    def build_transaction_history_params(account_id, start_date, end_date, type)
-      {
-        source: @source_id,
-        accountid: account_id,
-        startdate: start_date,
-        enddate: end_date,
-        type: type
-      }
-    end
     
-        BALANCES_AND_POSITIONS_URL='https://apis.tdameritrade.com/apps/100/BalancesAndPositions'
+    BALANCES_AND_POSITIONS_URL='https://apis.tdameritrade.com/apps/100/BalancesAndPositions'
 
     # +get_positions+ get account balances
     # +options+ may contain any of the params outlined in the API docs
@@ -148,6 +136,16 @@ module TDAmeritrade
     end
 
     private
+
+    def build_transaction_history_params(account_id, start_date, end_date, type)
+      {
+        source: @source_id,
+        accountid: account_id,
+        startdate: start_date,
+        enddate: end_date,
+        type: type
+      }
+    end
 
     def build_bp_params(account_id, options)
       {source: @source_id, accountid: account_id}.merge(options)
